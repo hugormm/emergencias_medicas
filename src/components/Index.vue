@@ -21,13 +21,13 @@
 
       <div class="row mt-5 mb-5 bg-light p-2">
         <div class="col">
-          <configuracao-equipe />
+          <configuracao-equipa />
         </div>
       </div>
 
       <div class="row mt-5 mb-5">
         <div class="col">
-          <equipes />
+          <equipas />
         </div>
       </div>
     </div>
@@ -36,16 +36,16 @@
 
 <script>
 import { mapActions, mapMutations } from 'vuex'
-import ConfiguracaoEquipe from './ConfiguracaoEquipe.vue'
+import ConfiguracaoEquipa from './ConfiguracaoEquipa.vue'
 import Equipamentos from './Equipamentos.vue'
-import Equipes from './Equipes.vue'
+import Equipas from './Equipas.vue'
 import Profissionais from './Profissionais.vue'
 
 export default {
   components: { 
-    ConfiguracaoEquipe,
+    ConfiguracaoEquipa,
     Equipamentos,
-    Equipes,
+    Equipas,
     Profissionais
   },
   name: 'Index',
@@ -61,24 +61,9 @@ export default {
       'setTelefones',
       'setKits'
     ]),
-    ...mapActions(['fetchEquipamentos', 'fetchProfissionais'])  // notacao array
-    /*   NOTACAO OBJ : 
-    ...mapActions({
-      x: 'fetchEquipamentos',
-      fetchProfissionais: 'fetchProfissionais'            dps e so chamar pelo x ou fetchProfissionais  (os nomes nao podem dar conflitos)
-    })
-    */
+    ...mapActions(['fetchEquipamentos', 'fetchProfissionais'])  
   },
   created() {
-    /*
-    this.$store.dispatch({
-      type: 'fetchEquipamentos',
-      carros: true,
-      telefones: true,
-      kitsDeReanimacao: true
-    })
-    this.$store.dispatch('fetchProfissionais')
-    */
     this.fetchEquipamentos({
       carros: true,
       telefones: true,
@@ -86,32 +71,6 @@ export default {
     })
 
     this.fetchProfissionais()
-    /*
-    fetch('http://localhost:3000/enfermeiros')
-      .then(response => response.json())
-      .then(data => this.setEnfermeiros(data))
-
-      fetch('http://localhost:3000/socorristas')
-      .then(response => response.json())
-      .then(data => this.setSocorristas(data))
-
-      fetch('http://localhost:3000/medicos')
-      .then(response => response.json())
-      .then(data => this.setMedicos(data))
-
-      /*
-      fetch('http://localhost:3000/equipamentos')
-      .then(response => response.json())
-      .then(data => {
-        this.setCarros(data.carros)
-        this.setTelefones(data)
-        this.setKits(data.kitsDeReanimacao)
-      })
-      */
-
-      
-      
-
   }
 }
 </script>

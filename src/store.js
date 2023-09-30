@@ -25,23 +25,15 @@ export default new Vuex.Store({
         totalEnfermeiros(state) {
             return state.enfermeiros.length
         },
-        socorristasPorTurno(state) {  /*closure  
-            return (turno) => {
-                if(!turno) {                  // se nao estiver defenido retornamos o array completo
-                    return state.socorristas
-                }
-                return state.socorristas.filter(s => s.turno === turno)
-            }               // com closure a funcao retornada vai lembrar se do contexto onde foi criada podendo assim usar o state dentro dela. */
-            return (turno) => !turno ? state.socorristas : state.socorristas.filter(s => s.turno === turno)   // ternario para simplificar
+        socorristasPorTurno(state) {  
+            return (turno) => !turno ? state.socorristas : state.socorristas.filter(s => s.turno === turno) 
         },
         totalSocorristas: state => state.socorristas.length,
-        totalSocorristasPorTurno: (state, getters) => turno => getters.socorristasPorTurno(turno).length  //(closure again para recuperar parametro turno e encadeamento de getters)
+        totalSocorristasPorTurno: (state, getters) => turno => getters.socorristasPorTurno(turno).length
 
     },
     mutations: {
-        //setItemEquipa: (state, {item}) => {     extraimos o item do obj
         setItemEquipa: (state, item) => {     
-            //let item = payload.item
             let tipo = item.tipo
             let dados = item.dados
 
@@ -53,7 +45,6 @@ export default new Vuex.Store({
             if(tipo == 'kits-de-reanimacao') state.equipa.kitDeReanimacao = dados.kit
         },
         setEnfermeiros: (state, payload) => {
-            //console.log('mutation', payload)
             state.enfermeiros = payload
         },
         setSocorristas: (state, payload) => {
@@ -77,27 +68,12 @@ export default new Vuex.Store({
         }
     },
     actions: {
-        /*
-        adiconarEquipamentos(context, {carros, kitsDeReanimacao, telefones}) {
-            console.log(carros)
-            console.log(kitsDeReanimacao)
-            console.log(telefones)
-            context.commit('setCarros', carros)
-            //processamento assincrono, tratativa
-            context.commit('setTelefones', telefones)
-            //processamento assincrono, diversas regras de negocio
-            context.commit('setKits', kitsDeReanimacao)
-
-        }
-        */
         fetchEquipamentos(context, {carros, telefones, kitsDeReanimacao}) {
             fetch('http://localhost:3000/equipamentos')
                 .then(response => response.json())
                 .then(data => {
                     if(carros) context.commit('setCarros', data.carros)
-                    //processamento assincrono, tratativa
                     if(telefones) context.commit('setTelefones', data.telefones)
-                    //processamento assincrono, diversas regras de negocio
                     if(kitsDeReanimacao) context.commit('setKits', data.kitsDeReanimacao)
                 })
         },

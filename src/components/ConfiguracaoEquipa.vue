@@ -22,7 +22,7 @@
         </div>
         <div class="row mt-3">
           <div class="col">
-            <button type="button" class="btn btn-primary" @click="montarEquipa">Montar equipe</button>
+            <button type="button" class="btn btn-primary" @click="montarEquipa">Montar equipa</button>
           </div>
         </div>              
       </div>
@@ -34,12 +34,10 @@
 import { mapState } from 'vuex'
 
 export default {
-    name: 'ConfiguracaoEquipe',
+    name: 'ConfiguracaoEquipa',
     data: () => ({
-      titulo: 'Configuração da equipe'
+      titulo: 'Configuração da equipa'
     }),
-    /*
-    computed: mapState(['equipa'])  */
     computed: {
       ...mapState({
         team: state => state.equipa,
@@ -70,7 +68,7 @@ export default {
     methods: {
       montarEquipa() {
 
-        let equipa = Object.assign({}, this.$store.state.equipa)  // fazemos uma copia da equipa  isto pq no store.equipa tem uma referencia do obj, e assim acedemos diretamente a um obj
+        let equipa = Object.assign({}, this.$store.state.equipa) 
         this.$store.commit('addEquipa', equipa)
       }
     } 
